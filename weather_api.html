@@ -1,0 +1,111 @@
+<!Doctype html>
+<html>
+<head>
+<title> CPCM --Robindeep Kaur c077347 </title>
+</head>
+
+<!-- here i am adding the stylesheet -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- these are the jquery api's -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+
+<script>
+$( function () {
+$( "#city" ).selectmenu({
+                change: function (event, data) {
+                                var selectedVal = $("#city").val();
+                                console.log('selected', selectedVal);
+								  if (selectedVal!="SELECT A CITY") {
+                                        //show selected city
+                                        $("#seleted_city").html("<h2>"+selectedVal+"</h2>");
+                                        //Make Ajax call to the API with a unique (free) API key and pass a city as a parameter, with GET request and parameters in the query string
+                                        $.ajax({url: "http://api.weatherstack.com/current?access_key=37a472e06a17ff15d96d14de36d6a5af&query="+selectedVal,
+										success: function(result){
+                                                        var obj = JSON.parse(JSON.stringify(result));
+                                                        $("#temp").text("Temperature (°C): "+obj.current.temperature); 
+                                                        $("#cond").text("Condition: "+obj.current.weather_descriptions[0]); 
+														 $("#wind_speed").text("Wind speed: "+obj.current.wind_speed); 
+														 $("#feelslike").text("Feels Like: "+obj.current.feelslike); 
+														 $("#humidity").text("Humidity: "+obj.current.humidity);
+														 $("#cloudcover").text("Cloud Cover: "+obj.current.cloudcover);
+														 $("#uv_index").text("UV Index: "+obj.current.uv_index);
+                                                        $("#icon").attr("src", obj.current.weather_icons[0]);
+                                                        
+                                                }
+                                        });
+                                }
+                                return false;
+                        }
+                }
+        );
+                                                
+  
+   } );
+</script>
+<style>
+fieldset {
+border: 0;
+}
+label {
+display: block;
+margin: 30px 0 0 0;
+}
+.overflow {
+height:200px;
+}
+</style>
+
+<style>
+#selection {float: left;}
+#city_info {float: right;}
+#main {width: 800px; margin: 0 auto;}
+h1 {color: #0074D9; text-align: center;}
+h5 {text-align: center;}
+</style>
+<!-- this is the html code which will be shown on the webpage -->
+<body>
+<div id ="main">
+<h1>WELCOME TO MY WEATHER NETWORK</h1>
+<h5>CPCM -- Robindeep</h5>
+<div id="selection">
+
+<fieldset>
+<!--creates a select box with the cities -->
+<select name="city" id="city">
+<option>SELECT A CITY</option>
+<option>Toronto</option>
+
+<option>Hamilton</option>
+<option>Vancouver</option>
+<option>Montreal</option>
+<option>Calgary</option>
+<option>Edmonton</option>
+</select>
+</fieldset>
+
+</div>
+<!-- creates HTML template to set data dynamically -->
+<div id="city_info">
+<p id="selected_city"></p>
+<p id="temp"></p>
+<p id="cond"></p>
+<p id="wind_speed"></p>
+<p id="feelslike"></p>
+<p id="humidity"></p>
+<p id="cloudcover"></p>
+<p id="uv_index"></p>
+
+<img id="icon">
+</div>
+</div>
+
+</body>
+</html>
+
