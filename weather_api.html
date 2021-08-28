@@ -26,7 +26,7 @@ $( "#city" ).selectmenu({
                                         //show selected city
                                         $("#seleted_city").html("<h2>"+selectedVal+"</h2>");
                                         //Make Ajax call to the API with a unique (free) API key and pass a city as a parameter, with GET request and parameters in the query string
-                                        $.ajax({url: "https://api.weatherstack.com/current?access_key=37a472e06a17ff15d96d14de36d6a5af&query="+selectedVal,
+                                        $.ajax({url: "http://api.weatherstack.com/current?access_key=37a472e06a17ff15d96d14de36d6a5af&query="+selectedVal,
 										success: function(result){
                                                         var obj = JSON.parse(JSON.stringify(result));
                                                         $("#temp").text("Temperature (°C): "+obj.current.temperature); 
