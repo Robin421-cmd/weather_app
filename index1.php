@@ -1,1 +1,6 @@
-<?php include_once("weather_api.html") ?>
+
+<?php
+
+include_once("weather_api.html");
+
+?>
